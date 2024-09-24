@@ -3,24 +3,46 @@ package at.tlaber.model;
 import java.util.List;
 import java.util.Random;
 
+
+/**
+ * WordTrainer Klasse
+ * @author Thomas Laber
+ * @version 2024-09-23
+ */
 public class WordTrainer {
     private int current;
     private List<WordImage> words;
     private int total;
     private int correct;
 
+    /**
+     * Constructor for WordTrainer
+     */
     public WordTrainer() {
         //TODO loading to be done
     }
 
+    /**
+     * getter Methode for current
+     * @return current Word
+     */
     public WordImage getCurrent() {
         return words.get(this.current);
     }
 
+    /**
+     * getter Methode for WordImages
+     * @return all WordImages
+     */
     public List<WordImage> getWordImages() {
         return words;
     }
 
+    /**
+     * setter for WordImages
+     * @param words a List of WordImages
+     * @throws IllegalArgumentException if the list is empty
+     */
     public void setWordImages(List<WordImage> words) throws IllegalArgumentException{
         if(words == null || words.size() == 0) {
             throw new IllegalArgumentException("Word images cannot be empty");
@@ -28,10 +50,19 @@ public class WordTrainer {
         this.words = words;
     }
 
+    /**
+     * getter Methode for Total
+     * @return the total guesses
+     */
     public int getTotal() {
         return total;
     }
 
+    /**
+     * setter Methode for total
+     * @param total the total guesses the user has taken
+     * @throws IllegalArgumentException if total is negative
+     */
     public void setTotal(int total) throws IllegalArgumentException {
         if(total < 0) {
             throw new IllegalArgumentException("Total must be a positive integer");
@@ -39,10 +70,19 @@ public class WordTrainer {
         this.total = total;
     }
 
+    /**
+     * getter Methode for correct
+     * @return the correct guesses
+     */
     public int getCorrect() {
         return correct;
     }
 
+    /**
+     * setter Methode for correct
+     * @param correct the correct guesses the user has taken
+     * @throws IllegalArgumentException if correct is negative
+     */
     public void setCorrect(int correct) throws IllegalArgumentException {
         if(correct < 0) {
             throw new IllegalArgumentException("Correct must be a positive integer");
@@ -50,18 +90,32 @@ public class WordTrainer {
         this.correct = correct;
     }
 
+    /**
+     * a loading Methode for the Wordtrainer
+     */
     public void load() {
         //TODO implement loading
     }
 
+    /**
+     * a store methode for the Wordtrainer
+     */
     public void store() {
         //TODO implement storing
     }
 
+    /**
+     * a Methode to check the users input with the correct answer
+     * @param input the users guess
+     * @return if the guess was correct or not
+     */
     public boolean check(String input) {
         return input.toLowerCase().equals(getCurrent().getWord().toLowerCase());
     }
 
+    /**
+     * a Methode to change the current picture
+     */
     public void changeCurrent() {
         int random;
         do {
