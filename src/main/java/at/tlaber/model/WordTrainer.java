@@ -14,6 +14,7 @@ public class WordTrainer {
     private List<WordImage> words;
     private int total;
     private int correct;
+    private StorageSystem storage = new JSONStorage();
 
     /**
      * Constructor for WordTrainer
@@ -94,14 +95,15 @@ public class WordTrainer {
      * a loading Methode for the Wordtrainer
      */
     public void load() {
-        //TODO implement loading
+        this.storage.load(this);
+        changeCurrent();
     }
 
     /**
      * a store methode for the Wordtrainer
      */
     public void store() {
-        //TODO implement storing
+        this.storage.store(this);
     }
 
     /**
