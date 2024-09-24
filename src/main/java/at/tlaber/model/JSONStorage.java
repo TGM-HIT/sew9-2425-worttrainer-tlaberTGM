@@ -10,13 +10,25 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+/**
+ * JSONStrorage class
+ * @author Thomas Laber
+ * @version 2024-09-24
+ */
 public class JSONStorage implements StorageSystem {
+    /**
+     * JSONStorage Constructor
+     */
     public JSONStorage() {}
 
+    /**
+     * methode to load a wordTrainer json
+     * @param wordTrainer the wordtrainer object in which the saved state will be loaded into
+     */
     @Override
     public void load(WordTrainer wordTrainer) {
         try {
-            String content = new String(Files.readAllBytes(Paths.get("wortTrainer.json")));
+            String content = new String(Files.readAllBytes(Paths.get("wordTrainer.json")));
             JSONObject jsonObject = new JSONObject(content);
 
             int total;
@@ -49,6 +61,10 @@ public class JSONStorage implements StorageSystem {
         }
     }
 
+    /**
+     * the methode to store a wordTrainer state
+     * @param wordTrainer the wordTrainer state which will be stored
+     */
     @Override
     public void store(WordTrainer wordTrainer) {
         try {
