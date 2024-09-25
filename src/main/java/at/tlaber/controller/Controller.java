@@ -87,6 +87,7 @@ public class Controller implements ActionListener {
                 break;
             case "load":
                 this.worttrainer.load();
+                this.panel.next(this.worttrainer.getCurrent().getUrl());
                 break;
             default:
                 System.out.println("Unknown command: " + actionCommand);
