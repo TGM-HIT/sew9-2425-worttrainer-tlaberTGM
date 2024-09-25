@@ -1,17 +1,63 @@
 package at.tlaber.controller;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Controller {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+import at.tlaber.model.WordTrainer;
+import at.tlaber.view.Frame;
+import at.tlaber.view.Panel;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+import java.awt.event.ActionEvent;
+import java.io.IOException;
+
+
+public class Controller {
+    private WordTrainer worttrainer;
+    private Frame frame;
+    private Panel panel;
+
+    public static void main(String[] args) {
+        new Controller();
+    }
+
+    public Controller() {
+        this.worttrainer = new WordTrainer();
+        try {
+            this.panel = new Panel(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        this.frame = new Frame(this.panel);
+    }
+
+    public String getUrl() {
+        return this.worttrainer.getCurrent().getUrl();
+    }
+
+    public int getCorrect() {
+        return this.worttrainer.getCorrect();
+    }
+
+    public int getTotal() {
+        return this.worttrainer.getTotal();
+    }
+
+    public void performAction(ActionEvent action) {
+        String actionCommand = action.getActionCommand();
+        switch (actionCommand) {
+            case "input":
+                if(this.worttrainer.check(this.panel.getInput())) {
+                    this.worttrainer.setCorrect(getCorrect()+1);
+                }
+                this.worttrainer.setTotal(getTotal()+1);
+                this.worttrainer.changeCurrent();
+                this.panel.nextWord(this.worttrainer.getCurrent().getUrl());
+                break;
+            case "store":
+                this.worttrainer.store();
+                break;
+            case "load":
+                this.worttrainer.load();
+                break;
+            default:
+                System.out.println("Unknown command: " + actionCommand);
         }
     }
 }
