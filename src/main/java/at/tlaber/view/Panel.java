@@ -46,12 +46,13 @@ public class Panel extends JPanel {
         //Image - CENTER
         JPanel center = new JPanel();
         center.setLayout(new GridLayout(1,1));
-        ImageIcon icon = new ImageIcon(String.valueOf(new URL(this.url)));
+        ImageIcon icon = new ImageIcon(new URL(this.url));
         Image image = icon.getImage();
         image = image.getScaledInstance(250,250,Image.SCALE_SMOOTH);
         this.picture = new JLabel(new ImageIcon(image));
         center.add(picture);
         this.add(center, BorderLayout.CENTER);
+
 
         //Textinput,Buttons & Stats - BOTTOM
         //General
@@ -129,7 +130,8 @@ public class Panel extends JPanel {
      */
     public void reload() throws IOException, URISyntaxException {
         JPanel center = new JPanel();
-        ImageIcon icon = new ImageIcon(String.valueOf(new URL(this.url)));
+        center.setLayout(new GridLayout(1,1));
+        ImageIcon icon = new ImageIcon(new URL(this.url));
         Image image = icon.getImage();
         image = image.getScaledInstance(250,250,Image.SCALE_SMOOTH);
         this.picture = new JLabel(new ImageIcon(image));
