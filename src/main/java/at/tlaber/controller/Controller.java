@@ -76,7 +76,7 @@ public class Controller {
                 }
                 this.worttrainer.setTotal(getTotal()+1);
                 this.worttrainer.changeCurrent();
-                this.panel.nextWord(this.worttrainer.getCurrent().getUrl());
+                this.panel.next(this.worttrainer.getCurrent().getUrl());
                 break;
             case "store":
                 this.worttrainer.store();
