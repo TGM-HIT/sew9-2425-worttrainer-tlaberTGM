@@ -5,7 +5,10 @@ import at.tlaber.view.Frame;
 import at.tlaber.view.Panel;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 
 
 /**
@@ -13,7 +16,7 @@ import java.io.IOException;
  * @author Thomas Laber
  * @version 2024-09-25
  */
-public class Controller {
+public class Controller implements ActionListener {
     private WordTrainer worttrainer;
     private Frame frame;
     private Panel panel;
@@ -33,7 +36,7 @@ public class Controller {
         this.worttrainer = new WordTrainer();
         try {
             this.panel = new Panel(this);
-        } catch (IOException e) {
+        } catch (URISyntaxException | MalformedURLException e) {
             e.printStackTrace();
         }
         this.frame = new Frame(this.panel);
@@ -67,7 +70,8 @@ public class Controller {
      * the methode which reacts to the actions the user takes in the program
      * @param action the action the user did
      */
-    public void performAction(ActionEvent action) {
+    @Override
+    public void actionPerformed(ActionEvent action) {
         String actionCommand = action.getActionCommand();
         switch (actionCommand) {
             case "input":

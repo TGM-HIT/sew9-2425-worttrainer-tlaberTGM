@@ -1,6 +1,8 @@
 package at.tlaber.model;
 
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 /**
@@ -72,7 +74,7 @@ public class WordImage {
             URL urlNew = new URL(url);
             return true;
         }
-        catch(MalformedURLException e) {
+         catch (MalformedURLException e) {
             return false;
         }
     }

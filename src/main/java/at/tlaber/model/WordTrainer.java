@@ -20,7 +20,8 @@ public class WordTrainer {
      * Constructor for WordTrainer
      */
     public WordTrainer() {
-        //TODO loading to be done
+        this.storage.load(this);
+        this.current = new Random().nextInt(words.size());
     }
 
     /**
