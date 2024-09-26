@@ -1,32 +1,66 @@
-# Thomas Laber
-Projektbeschreibung
+# Rechtschreibtrainer für Volksschulkinder
 
-Dieses Projekt ist ein Rechtschreibtrainer für Volksschulkinder. Die Anwendung zeigt den Kindern Bilder und fordert sie auf, das entsprechende Wort für das Bild einzugeben. Das Ziel ist es, die richtige Schreibweise von Wörtern zu trainieren. Bei jeder Eingabe wird das eingegebene Wort mit der korrekten Schreibweise verglichen, und das Kind erhält sofortiges Feedback, ob die Eingabe richtig oder falsch war.
+## Inhaltsverzeichnis
+1. [Überblick](#Überblick)
+2. [Funktionalität](#Funktionalität)
+3. [Klassendiagramm](#Klassendiagramm)
+4. [Technologien](#Technologien)
+5. [Anleitung zur Ausführung](#Anleitung-zur-Ausführung)
+6. [Persistenz](#Persistenz)
+7. [Grafische Oberfläche](#Grafische-Oberfläche)
+8. [Weiterentwicklungsmöglichkeiten](#Weiterentwicklungsmöglichkeiten)
 
-Funktionsübersicht
+---
 
-1. Wort-Bild-Paare
-   Jedes Wort-Bild-Paar wird durch eine Klasse dargestellt, die ein Wort und die dazugehörige Bild-URL enthält.
-   Objekte dieser Klasse sind immer in einem gültigen Zustand, da entsprechende Checks durchgeführt werden (z.B. keine null-Werte, gültige URLs).
-2. Rechtschreibtrainer
-   Der Rechtschreibtrainer verwaltet eine Sammlung von Wort-Bild-Paaren.
-   Zu Beginn ist kein Paar ausgewählt. Ein Wort-Bild-Paar kann entweder explizit durch einen Index oder zufällig ausgewählt werden.
-   Nachdem ein Paar ausgewählt wurde:
-   Die Bild-URL kann abgerufen werden.
-   Das zugehörige Wort kann erraten werden.
-   Bei einer falschen Antwort bleibt das aktuelle Paar ausgewählt, und das Kind kann einen neuen Versuch starten.
-   Bei einer richtigen Antwort wird das aktuelle Paar abgeschlossen, und ein neues muss vor dem nächsten Versuch ausgewählt werden.
-   Der Trainer führt eine Statistik darüber, wie oft Wörter geraten wurden und wie viele Versuche richtig oder falsch waren.
-3. Persistenz
-   Der Zustand des Rechtschreibtrainers (Wort-Bild-Paare, ausgewähltes Paar und Statistik) wird gespeichert und kann beim nächsten Programmstart wiederhergestellt werden.
-   Das Speicherformat kann flexibel gewählt werden (z.B. JSON, XML, SQLite).
-   Es wird ein Muster (Design Pattern) implementiert, das eine austauschbare Speicherstrategie ermöglicht.
-4. Grafische Benutzeroberfläche
-   Die Anwendung verwendet JOptionPane zur Anzeige von Bildern und zur Eingabe der Wörter.
-   Ablauf der Benutzerinteraktion:
-   Beim Start werden die persistierten Daten geladen. Wenn keine vorhanden sind, wird eine neue Trainer-Session mit festgelegten Wort-Bild-Paaren gestartet.
-   Ein Wort-Bild-Paar wird zufällig ausgewählt, und das Bild sowie die Statistik werden angezeigt.
-   Das Kind gibt das Wort ein.
-   Es wird sofortiges Feedback gegeben, ob die Eingabe richtig oder falsch war.
-   Die Schleife wiederholt sich, bis das Programm beendet wird.
-   Beim Beenden wird der aktuelle Zustand des Trainers persistiert.
+## Überblick
+Dieser Rechtschreibtrainer ist speziell für Volksschulkinder entwickelt worden, um die korrekte Schreibweise von Wörtern in einer spielerischen und interaktiven Umgebung zu üben. Die Kinder sehen ein Bild (z.B. einen Hund) und sollen das zugehörige Wort eingeben. Das Programm überprüft die Eingabe und gibt Rückmeldung, ob das Wort richtig geschrieben wurde.
+
+## Funktionalität
+Die Hauptfunktionalitäten des Rechtschreibtrainers sind:
+- Anzeige eines Bildes mit einer Eingabemöglichkeit für das zugehörige Wort.
+- Überprüfung der Eingabe auf korrekte Rechtschreibung.
+- Speicherung der Anzahl richtiger und falscher Versuche.
+- Zufällige Auswahl eines Wort-Bild-Paars.
+- Speicherung und Laden des Trainer-Zustands (inklusive Statistiken) beim Beenden und Starten des Programms.
+
+## Klassendiagramm
+Es gibt zwei zentrale Klassen:
+1. **WortBildPaar**: Repräsentiert ein Paar aus einem Bild und dem dazugehörigen Wort.
+   - Attribute: `wort`, `bildUrl`
+   - Methoden: `isValid()`
+2. **Rechtschreibtrainer**: Verwaltet eine Liste von Wort-Bild-Paaren, führt die Rechtschreibprüfung durch und speichert den Status.
+   - Attribute: `wortBildPaare[]`, `aktuellesPaar`, `statistik`
+   - Methoden: `waehleZufaelligesPaar()`, `pruefeWort()`, `ladeDaten()`, `speichereDaten()`
+
+## Technologien
+- Programmiersprache: Java
+- GUI: `JOptionPane` für die grafische Oberfläche.
+- Persistenz: JSON für das Speichern und Laden der Daten (z.B. über die Bibliothek `org.json`).
+
+## Anleitung zur Ausführung
+1. Stelle sicher, dass Java installiert ist.
+2. Klone das Repository oder lade den Quellcode herunter.
+3. Starte das Programm durch Ausführen der `Main.java`.
+4. Beim Start werden entweder gespeicherte Daten geladen oder es wird ein neuer Trainer mit festen Wort-Bild-Paaren gestartet.
+5. Folge den Anweisungen in den `JOptionPane`-Dialogen.
+
+## Persistenz
+Der Zustand des Trainers (die verfügbaren Wort-Bild-Paare, das aktuell ausgewählte Paar und die Statistiken) wird im JSON-Format gespeichert. Dies ermöglicht es, die Session zu einem späteren Zeitpunkt wiederherzustellen.
+
+- Speicherformat: JSON
+- Implementierung: Die Daten werden beim Beenden des Programms automatisch gespeichert und beim Starten wieder geladen.
+- Austauschbarkeit: Die Implementierung der Persistenz ist gekapselt, sodass eine andere Speicherstrategie (z.B. XML oder eine Datenbank) leicht implementiert werden kann.
+
+## Grafische Oberfläche
+Die grafische Oberfläche wurde mittels `JOptionPane` realisiert. Der Ablauf ist wie folgt:
+1. Ein zufälliges Wort-Bild-Paar wird ausgewählt.
+2. Ein Fenster zeigt das Bild an und fordert das Kind zur Eingabe des zugehörigen Wortes auf.
+3. Eine Rückmeldung (richtig oder falsch) wird angezeigt.
+4. Die Statistik wird nach jedem Versuch aktualisiert.
+5. Bei einem korrekten Versuch wird das nächste Wort-Bild-Paar ausgewählt, andernfalls wird das gleiche Paar erneut angezeigt.
+
+## Weiterentwicklungsmöglichkeiten
+- Erweiterung der grafischen Oberfläche für eine attraktivere Darstellung (z.B. durch Nutzung von `Swing` oder `JavaFX`).
+- Hinzufügen von Schwierigkeitsgraden (z.B. längere oder schwierigere Wörter).
+- Integration einer Sprachausgabe zur Unterstützung der Kinder beim Lernen.
+- Erweiterte Statistiken, wie die durchschnittliche Zeit pro Versuch.
