@@ -77,9 +77,9 @@ public class Controller implements ActionListener {
             case "input":
                 if(this.worttrainer.check(this.panel.getInput())) {
                     this.worttrainer.setCorrect(getCorrect()+1);
+                    this.worttrainer.changeCurrent();
                 }
                 this.worttrainer.setTotal(getTotal()+1);
-                this.worttrainer.changeCurrent();
                 this.panel.next(this.worttrainer.getCurrent().getUrl());
                 break;
             case "store":
