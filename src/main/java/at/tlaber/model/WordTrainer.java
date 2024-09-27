@@ -18,9 +18,15 @@ public class WordTrainer {
 
     /**
      * Constructor for WordTrainer
+     *
+     * @throws IllegalStateException if the words have an illegal state, to ensure safe access to the word size
      */
     public WordTrainer() {
         this.storage.load(this);
+
+        if(words==null || words.isEmpty()) {
+            throw new IllegalStateException("Word List is still empty or null after loading");
+        }
         this.current = new Random().nextInt(words.size());
     }
 
